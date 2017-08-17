@@ -6,11 +6,12 @@ import javax.annotation.Resource;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public class RedisBaseServer {
-
+    // 过期时间为60秒
+    private static final long EXPIRE_MINUTES = 60;
     @Resource(name = "redisTemplate")
     private ValueOperations<String, String> valueOperations;
 
@@ -19,6 +20,7 @@ public class RedisBaseServer {
 
     public void addValue(String key, String value) {
         valueOperations.set(key, value);
+        redisTemplate.expire(key, EXPIRE_MINUTES, TimeUnit.SECONDS);
     }
 
     public String getValue(String key) {

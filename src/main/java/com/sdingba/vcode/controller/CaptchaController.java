@@ -2,9 +2,11 @@ package com.sdingba.vcode.controller;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sdingba.vcode.config.VcodeConfig;
 import com.sdingba.vcode.server.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -50,5 +52,15 @@ public class CaptchaController {
         }
         params.put("valid", isValid);
         return params;
+    }
+
+    @Resource
+    private VcodeConfig vcodeConfig;
+
+    @RequestMapping(value = "a")
+    public void test() {
+        System.out.println(vcodeConfig.getPassword() + " " + vcodeConfig.getHost());
+        System.out.println(vcodeConfig.getCacheType());
+        System.out.println(vcodeConfig.getPort());
     }
 }

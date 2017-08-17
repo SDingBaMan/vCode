@@ -4,9 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -14,14 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import com.sdingba.vcode.server.RedisBaseServer;
-
 @Component
-public class ImageUtils extends ImageContants {
-
-
-    @Resource
-    private RedisBaseServer redisBaseServer;
+public class ImageUtils extends ImageBase {
 
     private static final int XX = 15;
     private static final int CAPTCHA_FONT_HEIGHT = 18;
@@ -30,7 +22,7 @@ public class ImageUtils extends ImageContants {
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8',
             '9' };
 
-    public void genCaptcha(String key, HttpServletResponse resp) {
+    public String genCaptcha(String key, HttpServletResponse resp) {
 
         // 定义图像 Buffer
         BufferedImage buffImg = new BufferedImage(CAPTCHA_WIDTH, CAPTCHA_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -90,12 +82,12 @@ public class ImageUtils extends ImageContants {
             ImageIO.write(buffImg, "jpeg", sos);
         } catch (IOException e) {
             LOGGER.error("image_io_write error {}", e);
+            return "";
         } finally {
             IOUtils.closeQuietly(sos);
             g.dispose();
         }
-        redisBaseServer.addValue(key, randomCode.toString());
-        redisBaseServer.expire(key, EXPIRE_MINUTES, TimeUnit.SECONDS);
+        return randomCode.toString();
     }
 
 }

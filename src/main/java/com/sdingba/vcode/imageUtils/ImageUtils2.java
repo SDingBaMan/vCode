@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -19,20 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
-import com.sdingba.vcode.server.RedisBaseServer;
-
 /**
  * Created by SDingBa.xiong on 17-8-17.
  */
 @Component
-public class ImageUtils2 extends ImageContants {
+public class ImageUtils2 extends ImageBase {
 
     // 使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
     private static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
     private static Random random = new Random();
-
-    @Resource
-    private RedisBaseServer redisBaseServer;
 
     /**
      * 验证码对象
@@ -299,7 +292,7 @@ public class ImageUtils2 extends ImageContants {
 
     }
 
-    public void genCaptcha(String key, HttpServletResponse resp) {
+    public String genCaptcha(String key, HttpServletResponse resp) {
         // 禁止图像缓存
         resp.setHeader("Pragma", "no-cache");
         resp.setHeader("Cache-Control", "no-cache");
@@ -313,11 +306,12 @@ public class ImageUtils2 extends ImageContants {
             outputImage(CAPTCHA_WIDTH, CAPTCHA_HEIGHT, sos, verifyCode);
         } catch (IOException e) {
             LOGGER.error("image_io_write error {}", e);
+            verifyCode = "";
         } finally {
             IOUtils.closeQuietly(sos);
         }
-        redisBaseServer.addValue(key, verifyCode);
-        redisBaseServer.expire(key, EXPIRE_MINUTES, TimeUnit.SECONDS);
+        return verifyCode;
+
     }
 
     public static void main(String[] args) throws IOException {

@@ -3,27 +3,33 @@ package com.sdingba.vcode.server;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sdingba.vcode.imageUtils.ImageUtils2;
+import com.sdingba.vcode.Contants.VcodeReslutEnum;
+import com.sdingba.vcode.config.VcodeConfig;
+import com.sdingba.vcode.factory.ImageFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-
-import com.sdingba.vcode.imageUtils.ImageUtils;
 
 @Service
 public class CaptchaService {
 
     @Resource
-    private ImageUtils imageUtils;
-    @Resource
-    private ImageUtils2 imageUtils2;
+    private VcodeConfig vcodeConfig;
 
     @Resource
-    private RedisBaseServer redisBaseDao;
+    private RedisBaseServer redisBaseServer;
 
     /**
      * 生成图片验证码
      */
-    public void genCaptcha(String key, HttpServletResponse resp) {
-        imageUtils2.genCaptcha(key, resp);
+    public int genCaptcha(String key, HttpServletResponse resp) {
+        int imageType = StringUtils.isNumeric(vcodeConfig.getImage()) ? Integer.parseInt(vcodeConfig.getImage()) : 0;
+        String verifyCode = ImageFactory.getImageUtil(imageType).genCaptcha(key, resp);
+        if (StringUtils.isNotEmpty(verifyCode)) {
+            redisBaseServer.addValue(key, verifyCode);
+            return VcodeReslutEnum.SUCESS.getCode();
+        } else {
+            return VcodeReslutEnum.FAIL.getCode();
+        }
     }
 
     /**
@@ -31,7 +37,7 @@ public class CaptchaService {
      *
      */
     public String findCaptcha(String key) {
-        return redisBaseDao.getValue(key);
+        return redisBaseServer.getValue(key);
     }
 
 }
