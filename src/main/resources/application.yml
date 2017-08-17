@@ -1,0 +1,5 @@
+server:
+  context-path: /
+  port: 9050
+  tomcat:
+    basedir: ${user.home}/tmp/tomcat
