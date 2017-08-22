@@ -34,3 +34,19 @@ quick start:
 
     vcode.image=2    // 选择 图片样式类型
     // vcode.cacheType=redis     // 选择验证码存储方式，目前redis
+
+
+2017-08-22：
+ add sms 短信发送模块，依赖redis,
+    配置：
+         vcode.smsAppKey=isSmsSuccess
+         vcode.smsAppSecret=isSmsSuccess
+         vcode.smsSign=isSmsSuccess
+    使用SmsService进行操作
+
+ add mail 邮箱发送验证码
+    配置：
+         vcode.mailAccount=xxxx
+         vcode.mailPass=xxxx
+         vcode.smtpServer=smtp.263.net
+    使用MailService进行操作

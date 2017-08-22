@@ -29,6 +29,66 @@ public class VcodeConfig {
 
     private String image;
 
+    private String smsAppKey;
+
+    private String smsAppSecret;
+
+    private String smsSign;
+
+    private String mailAccount;
+
+    private String mailPass;
+
+    private String smtpServer;
+
+    public String getMailAccount() {
+        return mailAccount;
+    }
+
+    public void setMailAccount(String mailAccount) {
+        this.mailAccount = mailAccount;
+    }
+
+    public String getMailPass() {
+        return mailPass;
+    }
+
+    public void setMailPass(String mailPass) {
+        this.mailPass = mailPass;
+    }
+
+    public String getSmtpServer() {
+        return smtpServer;
+    }
+
+    public void setSmtpServer(String smtpServer) {
+        this.smtpServer = smtpServer;
+    }
+
+    public String getSmsAppKey() {
+        return smsAppKey;
+    }
+
+    public void setSmsAppKey(String smsAppKey) {
+        this.smsAppKey = smsAppKey;
+    }
+
+    public String getSmsAppSecret() {
+        return smsAppSecret;
+    }
+
+    public void setSmsAppSecret(String smsAppSecret) {
+        this.smsAppSecret = smsAppSecret;
+    }
+
+    public String getSmsSign() {
+        return smsSign;
+    }
+
+    public void setSmsSign(String smsSign) {
+        this.smsSign = smsSign;
+    }
+
     public String getImage() {
         return image;
     }

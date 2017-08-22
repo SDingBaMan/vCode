@@ -10,13 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CaptchaService {
+public class CaptchaService extends BaseService {
 
     @Resource
     private VcodeConfig vcodeConfig;
-
-    @Resource
-    private RedisBaseServer redisBaseServer;
 
     /**
      * 生成图片验证码

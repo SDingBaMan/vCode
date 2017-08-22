@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RedisBaseServer {
     // 过期时间为60秒
-    private static final long EXPIRE_MINUTES = 60;
+    private static final long EXPIRE_MINUTES = 90;
     @Resource(name = "redisTemplate")
     private ValueOperations<String, String> valueOperations;
 
