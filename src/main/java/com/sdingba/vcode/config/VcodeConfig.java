@@ -41,6 +41,17 @@ public class VcodeConfig {
 
     private String smtpServer;
 
+    @Value("${vcode.auth.authKey}")
+    private String authKey;
+
+    public String getAuthKey() {
+        return authKey;
+    }
+
+    public void setAuthKey(String authKey) {
+        this.authKey = authKey;
+    }
+
     public String getMailAccount() {
         return mailAccount;
     }
