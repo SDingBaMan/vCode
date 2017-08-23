@@ -50,3 +50,9 @@ quick start:
          vcode.mailPass=xxxx
          vcode.smtpServer=smtp.263.net
     使用MailService进行操作
+
+
+2017-08-23
+ 添加http请求；
+ 如果 验证码单独运行一个项目，其他子项目使用http请求获取，需要添加authKey简单验证；
+ Controller类，详见；
