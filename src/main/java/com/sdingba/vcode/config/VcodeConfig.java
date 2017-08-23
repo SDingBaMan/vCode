@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by SDingBa.xiong on 17-8-17.
+ *
+ * 外部依赖 配置文件获取
  */
 @Component
 @PropertySource("classpath:vcode.properties")

@@ -20,7 +20,9 @@ import com.sdingba.vcode.server.MailService;
 import com.sdingba.vcode.server.SmsService;
 
 /**
- * 测试 Controller 如果，验证码单独 项目，需要平配置authKey，并且使用http请求 生成/获取 验证码
+ * 测试 Controller 如果，验证码单独 项目，需要平配置authKey，
+ *
+ * 并且使用http请求 生成/获取 验证码
  */
 @RestController
 @RequestMapping(value = "/v0.1/vCodePlug")
