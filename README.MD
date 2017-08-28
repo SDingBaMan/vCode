@@ -45,6 +45,7 @@ quick start:
          vcode.smsSign=isSmsSuccess
     使用SmsService进行操作
 
+
  add mail 邮箱发送验证码
     配置：
          vcode.mailAccount=xxxx
